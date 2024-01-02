@@ -71,11 +71,18 @@
       // let y2 = -0.5;
       let minZoom = 0.01;
 
+      const updateMinZoom = () => {
+        if (Math.abs(x2 - x1) < 20 * minZoom || Math.abs(y2 - y1) < 20 * minZoom) {
+          minZoom = minZoom / 10;
+        }
+      }
+
       const setBounds = () => {
         document.getElementById("x1").innerHTML = "x1: " + x1;
         document.getElementById("x2").innerHTML = "x2: " + x2;
         document.getElementById("y1").innerHTML = "y1: " + y1;
         document.getElementById("y2").innerHTML = "y2: " + y2;
+        updateMinZoom();
       }
       
       const getDefaultImage = () => {
@@ -204,6 +211,6 @@
         setBounds();
       });
     </script>
-    <p>Please Click on the "init" button to start or reinitialize the canvas<p>
+    <p>Please Click on the "init" button to start or reinitialize the canvas. Keep zooming in to infinity!<p>
   </body>
 </html>
