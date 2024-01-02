@@ -7,14 +7,16 @@
     
     <canvas id="canvas" width="500" height="500"></canvas>
     <script async type="text/javascript" src="mandelbrot.js"></script>
-    <table style="border-spacing: 10em; border-collapse: separate;">
+    <table style="border-spacing: 3em 0; border-collapse: separate;">
       <tbody>
-        <tr >
-          
+        <tr>
           <td>
             <div id="zoomWidget">
               <table>
                 <tbody>
+                  <tr>
+                    <td>Zoom</td>
+                  </tr>
                   <tr>
                     <td><button id="zoom in">+</button></td>
                   </tr>
@@ -22,21 +24,20 @@
                     <td><button id="zoom out">-</button></td>
                   </tr>
                 </tbody>
-              <table>
+              </table>
             </div>
           </td>
-          <td></td><td></td><td></td>
           <td>
             <div id="directionsControl">
               <table>
                 <tbody>
-                  
+                  <tr><td></td><td>Move</td><td></td></tr>
                   <tr><td></td><td><button id="up">up</button></td><td></td></tr>
                   <tr><td><button id="left">left</button></td><td><button id="initbutton">Init</button></td><td><button id="right">right</button></td></tr>
                   <tr><td></td><td><button id="down">down</button></td><td></td></tr>
                   
                 </tbody>
-              <table>
+              </table>
             </div>
           </td>
         <tr>
