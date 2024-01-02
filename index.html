@@ -40,6 +40,18 @@
               </table>
             </div>
           </td>
+          <td>
+            <div>
+            <table>
+              <tbody>
+                <tr><td id="x1"></td></tr>
+                <tr><td id="x2"></td></tr>
+                <tr><td id="y1"></td></tr>
+                <tr><td id="y2"></td></tr>
+              </tbody>
+            </table>
+            </div>
+          </td>
         <tr>
       </tbody>
     </table>
@@ -53,7 +65,18 @@
       let x2 = 0.5;
       let y1 = -1.0;
       let y2 = -1.0;
+      // let x1 = 0.3;
+      // let x2 = 0.5;
+      // let y1 = -0.3;
+      // let y2 = -0.5;
       let minZoom = 0.01;
+
+      const setBounds = () => {
+        document.getElementById("x1").innerHTML = "x1: " + x1;
+        document.getElementById("x2").innerHTML = "x2: " + x2;
+        document.getElementById("y1").innerHTML = "y1: " + y1;
+        document.getElementById("y2").innerHTML = "y2: " + y2;
+      }
       
       const getDefaultImage = () => {
         let def =[];
@@ -108,6 +131,7 @@
         img2 = getImage();
         // let img = getDefaultImage();
         initializeCanvas(img2);
+        setBounds();
       });
 
       document.getElementById("zoom in").addEventListener("click", () => {
@@ -118,6 +142,7 @@
         let img2 = getImage();
         // let img = getDefaultImage();
         initializeCanvas(img2);
+        setBounds();
       });
 
       document.getElementById("zoom out").addEventListener("click", () => {
@@ -132,6 +157,7 @@
         let img2 = getImage();
         // let img = getDefaultImage();
         initializeCanvas(img2);
+        setBounds();
       });
 
       document.getElementById("up").addEventListener("click", () => {
@@ -142,6 +168,7 @@
         let img2 = getImage();
         // let img = getDefaultImage();
         initializeCanvas(img2);
+        setBounds();
       });
 
       document.getElementById("down").addEventListener("click", () => {
@@ -152,6 +179,7 @@
         let img2 = getImage();
         // let img = getDefaultImage();
         initializeCanvas(img2);
+        setBounds();
       });
 
       document.getElementById("left").addEventListener("click", () => {
@@ -162,6 +190,7 @@
         let img2 = getImage();
         // let img = getDefaultImage();
         initializeCanvas(img2);
+        setBounds();
       });
 
       document.getElementById("right").addEventListener("click", () => {
@@ -172,6 +201,7 @@
         let img2 = getImage();
         // let img = getDefaultImage();
         initializeCanvas(img2);
+        setBounds();
       });
     </script>
     <p>Please Click on the "init" button to start or reinitialize the canvas<p>
