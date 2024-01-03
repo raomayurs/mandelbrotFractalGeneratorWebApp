@@ -6,7 +6,7 @@ The fractals are generated as 700x700 images. WebAssembly (WASM) is utilized for
 
 ## Usage
 
-1. Visit [Mandelbrot App](https://mandelbrotapp.s3.eu-west-2.amazonaws.com/index.html).
+1. Visit [Mandelbrot App](https://raomayurs.github.io/mandelbrotFractalGeneratorWebApp/).
 2. Select the `init` button to load the first fractal with bounds `x1 = -1.5, x2 = 0.5, y1 = -1.0, y2 = 1.0`.
 3. Use `+` and `-` to zoom in or out.
 4. Utilize direction buttons to navigate within the fractal's bounds.
@@ -31,15 +31,15 @@ emcc node/mandelbrotNodeJS.c -o node/mandelbrotNodeJS.js -s MODULARIZE -s EXPORT
 ```
 Run `node node/test.js` to execute a local NodeJS example to generate a fractal using WASM.
 
-### Deployment
+## Deployment of Web App
 
-To deploy the Mandelbrot Fractal Generator web app, follow these steps:
+The Mandelbrot Fractal Generator web app is seamlessly hosted on Github using [Github Pages](https://pages.github.com).
 
-1. The web app is hosted directly on AWS S3 as public files.
-2. After making changes, ensure the following files are uploaded to your S3 bucket:
-   - `mandelbrot.js`
-   - `mandelbrot.wasm`
-   - `index.html`
-3. Make sure all uploaded files are set to Public access.
-4. To run the web app, use the public S3 URL for the `index.html` object.
+Alternatively, if you prefer hosting on Amazon S3, follow these steps:
+
+1. Upload the following files to your S3 bucket: `mandelbrot.js`, `mandelbrot.wasm`, and `index.html`.
+2. Ensure that the uploaded files have public access permissions.
+3. Utilize the public S3 URL for `index.html` to access and use the web app.
+
+This flexibility allows you to choose the hosting solution that best suits your preferences.
 
