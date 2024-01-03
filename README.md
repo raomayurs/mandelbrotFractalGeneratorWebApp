@@ -1,4 +1,4 @@
-# Fractalx Generator
+# Fractals Generator
 
 This package contains code for a web app to generate Mandelbrot and Julia fractals. Learn more about the Mandelbrot set [here](https://en.wikipedia.org/wiki/Mandelbrot_set). Learn more about Julia set [here](https://en.wikipedia.org/wiki/Julia_set)
 
