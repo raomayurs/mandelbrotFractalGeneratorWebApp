@@ -2,7 +2,7 @@
 
 This package contains code for a web app to generate Mandelbrot fractals. Learn more about the Mandelbrot set [here](https://en.wikipedia.org/wiki/Mandelbrot_set).
 
-The fractals are generated as 700x700 images. WebAssembly (WASM) is utilized for performance. The C code, responsible for generating Mandelbrot image pixels within specified bounds, is compiled to WASM. The WASM module is then loaded into JS and used in HTML to generate and render images. All generation occurs client-side in the browser.
+The fractals are generated as 700x700 images. WebAssembly (WASM) is utilized for performance. The C code, responsible for generating Mandelbrot image pixels within specified bounds, is compiled to WASM. The WASM module is then loaded into JS and used in HTML to generate and render images. All generation occurs client-side on the browser in real time.
 
 ## Usage
 
