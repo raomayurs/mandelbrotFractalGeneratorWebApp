@@ -16,10 +16,11 @@ The fractals are generated as 700x700 images. WebAssembly (WASM) is utilized for
 ### Julia Fractals
 
 1. Visit [Julia App](https://raomayurs.github.io/mandelbrotFractalGeneratorWebApp/julia.html).
-2. Select the `init` button to load the first fractal with bounds `x1 = -2, x2 = 2, y1 = -2, y2 = 2` and first imaginary `c = -0.4 + 0.65i`
-3. Use zoom controls to zoom in or out.
-4. Utilize direction buttons to navigate within the fractal's bounds.
-5. Use the controls to update the value of the complex number c. This determines the shape of the fractal
+2. Select the `init` button to load the first fractal with bounds `x1 = -2, x2 = 2, y1 = -2, y2 = 2` and first complex number `c = -0.4 + 0.65i`
+3. Use the controls to update the value of the complex number c. This determines the shape of the base fractal
+4. Use zoom controls to zoom in or out of the base fractal.
+5. Utilize direction buttons to navigate within the base fractal's bounds.
+
 
 ## Development
 
