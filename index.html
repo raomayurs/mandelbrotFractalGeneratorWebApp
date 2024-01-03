@@ -77,14 +77,18 @@
     <script>
       const width = 700;
       const height = 700;
-      let x1 = -1.5;
-      let x2 = 0.5;
-      let y1 = -1.0;
-      let y2 = -1.0;
-      // let x1 = 0.3;
-      // let x2 = 0.5;
-      // let y1 = -0.3;
-      // let y2 = -0.5;
+      const initX1 = -1.5;
+      const initX2 = 0.5;
+      const initY1 = -1.0;
+      const initY2 = 1.0;
+      // const initX1 = 0.3;
+      // const initX2 = 0.5;
+      // const initY1 = -0.3;
+      // const initY2 = -0.5;
+      let x1 = initX1;
+      let x2 = initX2;
+      let y1 = initY1;
+      let y2 = initY2;
       let minZoom = 0.01;
 
       const updateMinZoom = () => {
@@ -121,8 +125,6 @@
         for (let v=0; v < numEle; v++) {
             arrayData.push( Module.HEAP32[offset+v] )
         }
-
-        // let pixels = arrayData.reduce((rows, key, index) => (index % 4 == 0 ? rows.push([key]) : rows[rows.length-1].push(key)) && rows, []);
         return arrayData;
       }
 
@@ -141,20 +143,19 @@
           ctx.putImageData(imgData, 0, 0);
         }
       }
-      
-      document.getElementById("initbutton").addEventListener("click", () => {
-        x1 = -1.5;
-        x2 = 0.5;
-        y1 = -1.0;
-        y2 = 1.0;
-        // x1 = 0.3;
-        // x2 = 0.5;
-        // y1 = -0.3;
-        // y2 = -0.5;
-        img2 = getImage();
-        // let img = getDefaultImage();
+
+      const setImage = () => {
+        const img2 = getImage();
         initializeCanvas(img2);
         setBounds();
+      }
+      
+      document.getElementById("initbutton").addEventListener("click", () => {
+        x1 = initX1;
+        x2 = initX2;
+        y1 = initY1;
+        y2 = initY2;
+        setImage();
       });
 
       document.getElementById("zoom in").addEventListener("click", () => {
@@ -162,10 +163,7 @@
         x2 = x2 - minZoom
         y1 = y1 + minZoom
         y2 = y2 - minZoom
-        let img2 = getImage();
-        // let img = getDefaultImage();
-        initializeCanvas(img2);
-        setBounds();
+        setImage();
       });
 
       document.getElementById("zoom out").addEventListener("click", () => {
@@ -177,10 +175,7 @@
         if (y1 < -2.0) y1 = -2.0;
         if (x2 > 2.0) x2 = 2.0;
         if (y2 > 2.0) y2 = 2.0;
-        let img2 = getImage();
-        // let img = getDefaultImage();
-        initializeCanvas(img2);
-        setBounds();
+        setImage();
       });
 
       document.getElementById("up").addEventListener("click", () => {
@@ -188,10 +183,7 @@
         y2 = y2 + minZoom
         if (y1 < -2.0) y1 = -2.0;
         if (y2 > 2.0) y2 = 2.0;
-        let img2 = getImage();
-        // let img = getDefaultImage();
-        initializeCanvas(img2);
-        setBounds();
+        setImage();
       });
 
       document.getElementById("down").addEventListener("click", () => {
@@ -199,10 +191,7 @@
         y2 = y2 - minZoom
         if (y1 < -2.0) y1 = -2.0;
         if (y2 > 2.0) y2 = 2.0;
-        let img2 = getImage();
-        // let img = getDefaultImage();
-        initializeCanvas(img2);
-        setBounds();
+        setImage();
       });
 
       document.getElementById("left").addEventListener("click", () => {
@@ -210,10 +199,7 @@
         x2 = x2 - minZoom
         if (x1 < -2.0) x1 = -2.0;
         if (x2 > 2.0) x2 = 2.0;
-        let img2 = getImage();
-        // let img = getDefaultImage();
-        initializeCanvas(img2);
-        setBounds();
+        setImage();
       });
 
       document.getElementById("right").addEventListener("click", () => {
@@ -221,10 +207,7 @@
         x2 = x2 + minZoom
         if (x1 < -2.0) x1 = -2.0;
         if (x2 > 2.0) x2 = 2.0;
-        let img2 = getImage();
-        // let img = getDefaultImage();
-        initializeCanvas(img2);
-        setBounds();
+        setImage();
       });
     </script>
     <p>Please Click on the "init" button to start or reinitialize the canvas. Keep zooming in to infinity!<p>
