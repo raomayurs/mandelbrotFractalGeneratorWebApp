@@ -13,11 +13,18 @@ The fractals are generated as 700x700 images. WebAssembly (WASM) is utilized for
 
 ## Development
 
+### Prerequisites
+- Emsdk - Emsdk contains tools like `emrun` and `emcc`. Please visit [here](https://emscripten.org/docs/getting_started/downloads.html)
+- Libpng - If images need to be generated locally then please install libpng. 
+
 - `mandelbrot.c` contains the C code to generate Mandelbrot pixels. The method `getMandelbrotImagePixels` accepts the width, height, and bounds for the Mandelbrot fractal, returning the pixel array.
 - `index.html` contains code to render the fractals using the WASM module.
 - Run `emrun index.html` to host the web app on a local server
     - Visit `http://localhost:6931/index.html` once the server starts to use the web app
     - Refresh on making changes to `index.html` to see changes 
+- `fractal.c` is a C program that takes the height, width, bounds of fractal and filename in png
+    - It makes use of libpng to save fractal to a png file. libpng must be installed.
+    - Example: `gcc -lm -lpng fractal.c -o fractal && ./fractal 500 500 0.3 0.5 -0.3 -0.5 test.png`
 
 ## Build Steps
 
