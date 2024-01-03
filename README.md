@@ -15,6 +15,9 @@ The fractals are generated as 700x700 images. WebAssembly (WASM) is utilized for
 
 - `mandelbrot.c` contains the C code to generate Mandelbrot pixels. The method `getMandelbrotImagePixels` accepts the width, height, and bounds for the Mandelbrot fractal, returning the pixel array.
 - `index.html` contains code to render the fractals using the WASM module.
+- Run `emrun index.html` to host the web app on a local server
+    - Visit `http://localhost:6931/index.html` once the server starts to use the web app
+    - Refresh on making changes to `index.html` to see changes 
 
 ## Build Steps
 
