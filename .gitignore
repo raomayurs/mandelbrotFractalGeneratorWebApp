@@ -1,4 +1,6 @@
-mandelbrot.html
+fractal.html
 pixelsFromWasm
 fractal
 *.png
+fractalNodeJS.*
+.vscode

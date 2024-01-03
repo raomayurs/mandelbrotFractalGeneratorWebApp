@@ -20,12 +20,46 @@
     </style>
   </head>
   <body>
-    <h1>Mandelbrot Fractal Generator</h1>
+    <h1>Julia Fractal Generator</h1>
     <canvas id="canvas" width="700" height="700"></canvas>
-    <script async type="text/javascript" src="mandelbrot.js"></script>
+    <script async type="text/javascript" src="fractal.js"></script>
     <table style="border-spacing: 3em 0; border-collapse: separate;">
       <tbody>
         <tr>
+          <td>
+            <div id="realPart">
+              <table>
+                <tbody>
+                  <tr>
+                    <td id="realText"></td>
+                  </tr>
+                  <tr>
+                    <td><button id="real increase">+</button></td>
+                  </tr>
+                  <tr>
+                    <td><button id="real decrease">-</button></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+          </td>
+          <td>
+            <div id="imaginaryPart">
+              <table>
+                <tbody>
+                  <tr>
+                    <td id="imaginaryText"></td>
+                  </tr>
+                  <tr>
+                    <td><button id="imaginary increase">+</button></td>
+                  </tr>
+                  <tr>
+                    <td><button id="imaginary decrease">-</button></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+          </td>
           <td>
             <div id="zoomWidget">
               <table>
@@ -77,10 +111,14 @@
     <script>
       const width = 700;
       const height = 700;
-      const initX1 = -1.5;
-      const initX2 = 0.5;
-      const initY1 = -1.0;
-      const initY2 = 1.0;
+
+      const initX1 = -2.0;
+      const initX2 = 2.0;
+      const initY1 = -2.0;
+      const initY2 = 2.0;
+
+      const initR = -0.4;
+      const initI = 0.65;
       // const initX1 = 0.3;
       // const initX2 = 0.5;
       // const initY1 = -0.3;
@@ -89,6 +127,8 @@
       let x2 = initX2;
       let y1 = initY1;
       let y2 = initY2;
+      let r = initR;
+      let i = initI;
       let minZoom = 0.01;
 
       const updateMinZoom = () => {
@@ -98,10 +138,10 @@
       }
 
       const setBounds = () => {
-        document.getElementById("x1").innerHTML = "x1: " + x1;
-        document.getElementById("x2").innerHTML = "x2: " + x2;
-        document.getElementById("y1").innerHTML = "y1: " + y1;
-        document.getElementById("y2").innerHTML = "y2: " + y2;
+        document.getElementById("x1").innerHTML = "x1: " + x1.toFixed(17);;
+        document.getElementById("x2").innerHTML = "x2: " + x2.toFixed(17);;
+        document.getElementById("y1").innerHTML = "y1: " + y1.toFixed(17);;
+        document.getElementById("y2").innerHTML = "y2: " + y2.toFixed(17);;
         updateMinZoom();
       }
       
@@ -117,9 +157,8 @@
         return def;
       }
       const getImage = () => {
-        console.log(x1, x2, y1, y2)
         const numEle = width * height * 4;
-        const result = Module.ccall('getMandelbrotImagePixels','number', ['number', 'number', 'number', 'number', 'number', 'number'], [width, height, x1, x2, y1, y2]);
+        const result = Module.ccall('getJuliaFractalPixels','number', ['number', 'number', 'number', 'number', 'number', 'number', 'number', 'number'], [width, height, r, i, x1, x2, y1, y2]);
         const arrayData = []
         const offset = result/Uint32Array.BYTES_PER_ELEMENT;
         for (let v=0; v < numEle; v++) {
@@ -155,7 +194,11 @@
         x2 = initX2;
         y1 = initY1;
         y2 = initY2;
+        r = initR;
+        i = initI;
         setImage();
+        document.getElementById("realText").innerHTML = "c.real = " + r.toFixed(2);;
+        document.getElementById("imaginaryText").innerHTML = "c.im = " + i.toFixed(2);;
       });
 
       document.getElementById("zoom in").addEventListener("click", () => {
@@ -208,6 +251,34 @@
         if (x1 < -2.0) x1 = -2.0;
         if (x2 > 2.0) x2 = 2.0;
         setImage();
+      });
+
+      document.getElementById("real increase").addEventListener("click", () => {
+        r = r + 0.01;
+        if (r > 2.0) r = 2.0;
+        setImage();
+        document.getElementById("realText").innerHTML = "c.real = " + r.toFixed(2);;
+      });
+
+      document.getElementById("real decrease").addEventListener("click", () => {
+        r = r - 0.01;
+        if (r < -2.0) r = -2.0;
+        setImage();
+        document.getElementById("realText").innerHTML = "c.real = " + r.toFixed(2);;
+      });
+
+      document.getElementById("imaginary increase").addEventListener("click", () => {
+        i = i + 0.01;
+        if (i > 2.0) i = 2.0;
+        setImage();
+        document.getElementById("imaginaryText").innerHTML = "c.im = " + i.toFixed(2);;
+      });
+
+      document.getElementById("imaginary decrease").addEventListener("click", () => {
+        i = i - 0.01;
+        if (i < -2.0) r = -2.0;
+        setImage();
+        document.getElementById("imaginaryText").innerHTML = "c.im = " + i.toFixed(2);;
       });
     </script>
     <p>Please Click on the "init" button to start or reinitialize the canvas. Keep zooming in to infinity!<p>

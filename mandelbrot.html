@@ -1,0 +1,215 @@
+
+
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <style>
+      html, body {
+        height: 100%;
+      }
+
+      html {
+          display: table;
+          margin: auto;
+      }
+
+      body {
+          display: table-cell;
+          vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Mandelbrot Fractal Generator</h1>
+    <canvas id="canvas" width="700" height="700"></canvas>
+    <script async type="text/javascript" src="fractal.js"></script>
+    <table style="border-spacing: 3em 0; border-collapse: separate;">
+      <tbody>
+        <tr>
+          <td>
+            <div id="zoomWidget">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Zoom</td>
+                  </tr>
+                  <tr>
+                    <td><button id="zoom in">+</button></td>
+                  </tr>
+                  <tr>
+                    <td><button id="zoom out">-</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+          <td>
+            <div id="directionsControl">
+              <table>
+                <tbody>
+                  <tr><td></td><td>Move</td><td></td></tr>
+                  <tr><td></td><td><button id="up">up</button></td><td></td></tr>
+                  <tr><td><button id="left">left</button></td><td><button id="initbutton">init</button></td><td><button id="right">right</button></td></tr>
+                  <tr><td></td><td><button id="down">down</button></td><td></td></tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </td>
+          <td>
+            <div>
+            <table>
+              <tbody>
+                <tr><td id="x1"></td></tr>
+                <tr><td id="x2"></td></tr>
+                <tr><td id="y1"></td></tr>
+                <tr><td id="y2"></td></tr>
+              </tbody>
+            </table>
+            </div>
+          </td>
+        <tr>
+      </tbody>
+    </table>
+    
+    
+    
+    <script>
+      const width = 700;
+      const height = 700;
+      const initX1 = -1.5;
+      const initX2 = 0.5;
+      const initY1 = -1.0;
+      const initY2 = 1.0;
+      // const initX1 = 0.3;
+      // const initX2 = 0.5;
+      // const initY1 = -0.3;
+      // const initY2 = -0.5;
+      let x1 = initX1;
+      let x2 = initX2;
+      let y1 = initY1;
+      let y2 = initY2;
+      let minZoom = 0.01;
+
+      const updateMinZoom = () => {
+        if (Math.abs(x2 - x1) < 20 * minZoom || Math.abs(y2 - y1) < 20 * minZoom) {
+          minZoom = minZoom / 10;
+        }
+      }
+
+      const setBounds = () => {
+        document.getElementById("x1").innerHTML = "x1: " + x1;
+        document.getElementById("x2").innerHTML = "x2: " + x2;
+        document.getElementById("y1").innerHTML = "y1: " + y1;
+        document.getElementById("y2").innerHTML = "y2: " + y2;
+        updateMinZoom();
+      }
+      
+      const getDefaultImage = () => {
+        let def =[];
+        for(let i = 0;i < width; i++) {
+          for(let j = 0;j < height; j++) {
+            for(let k = 0;k < 3; k++) {
+              def.push(0);
+            }
+          } 
+        }
+        return def;
+      }
+      const getImage = () => {
+        console.log(x1, x2, y1, y2)
+        const numEle = width * height * 4;
+        const result = Module.ccall('getMandelbrotImagePixels','number', ['number', 'number', 'number', 'number', 'number', 'number'], [width, height, x1, x2, y1, y2]);
+        const arrayData = []
+        const offset = result/Uint32Array.BYTES_PER_ELEMENT;
+        for (let v=0; v < numEle; v++) {
+            arrayData.push( Module.HEAP32[offset+v] )
+        }
+        return arrayData;
+      }
+
+      function initializeCanvas(img) {
+        canvas = document.getElementById('canvas');
+        context = canvas.getContext('2d');
+        if (canvas) {
+          let ctx = canvas.getContext("2d");
+          
+
+          var imgData = ctx.createImageData(width, height); // width x height
+          var data = imgData.data;
+
+          data.set(new Uint8ClampedArray(img));
+
+          ctx.putImageData(imgData, 0, 0);
+        }
+      }
+
+      const setImage = () => {
+        const img2 = getImage();
+        initializeCanvas(img2);
+        setBounds();
+      }
+      
+      document.getElementById("initbutton").addEventListener("click", () => {
+        x1 = initX1;
+        x2 = initX2;
+        y1 = initY1;
+        y2 = initY2;
+        setImage();
+      });
+
+      document.getElementById("zoom in").addEventListener("click", () => {
+        x1 = x1 + minZoom
+        x2 = x2 - minZoom
+        y1 = y1 + minZoom
+        y2 = y2 - minZoom
+        setImage();
+      });
+
+      document.getElementById("zoom out").addEventListener("click", () => {
+        x1 = x1 - minZoom
+        x2 = x2 + minZoom
+        y1 = y1 - minZoom
+        y2 = y2 + minZoom
+        if (x1 < -2.0) x1 = -2.0;
+        if (y1 < -2.0) y1 = -2.0;
+        if (x2 > 2.0) x2 = 2.0;
+        if (y2 > 2.0) y2 = 2.0;
+        setImage();
+      });
+
+      document.getElementById("up").addEventListener("click", () => {
+        y1 = y1 + minZoom
+        y2 = y2 + minZoom
+        if (y1 < -2.0) y1 = -2.0;
+        if (y2 > 2.0) y2 = 2.0;
+        setImage();
+      });
+
+      document.getElementById("down").addEventListener("click", () => {
+        y1 = y1 - minZoom
+        y2 = y2 - minZoom
+        if (y1 < -2.0) y1 = -2.0;
+        if (y2 > 2.0) y2 = 2.0;
+        setImage();
+      });
+
+      document.getElementById("left").addEventListener("click", () => {
+        x1 = x1 - minZoom
+        x2 = x2 - minZoom
+        if (x1 < -2.0) x1 = -2.0;
+        if (x2 > 2.0) x2 = 2.0;
+        setImage();
+      });
+
+      document.getElementById("right").addEventListener("click", () => {
+        x1 = x1 + minZoom
+        x2 = x2 + minZoom
+        if (x1 < -2.0) x1 = -2.0;
+        if (x2 > 2.0) x2 = 2.0;
+        setImage();
+      });
+    </script>
+    <p>Please Click on the "init" button to start or reinitialize the canvas. Keep zooming in to infinity!<p>
+  </body>
+</html>
