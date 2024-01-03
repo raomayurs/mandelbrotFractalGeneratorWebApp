@@ -62,7 +62,7 @@ EXTERN EMSCRIPTEN_KEEPALIVE uintptr_t getIntArray()
 
 EXTERN EMSCRIPTEN_KEEPALIVE uintptr_t getMandelbrotImagePixels(int width, int height, double x1, double x2,double y1, double y2) {
     int maxIterations = 50;
-    double pixels[height * width * 4];
+    int pixels[height * width * 4];
     
     int i, j;
     int count = 0;

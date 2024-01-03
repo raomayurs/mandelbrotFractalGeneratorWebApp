@@ -21,7 +21,7 @@
   </head>
   <body>
     
-    <canvas id="canvas" width="800" height="800"></canvas>
+    <canvas id="canvas" width="700" height="700"></canvas>
     <script async type="text/javascript" src="mandelbrot.js"></script>
     <table style="border-spacing: 3em 0; border-collapse: separate;">
       <tbody>
@@ -119,7 +119,7 @@
         const arrayData = []
         const offset = result/Uint32Array.BYTES_PER_ELEMENT;
         for (let v=0; v < numEle; v++) {
-            arrayData.push( Module.HEAPF64[result/Float64Array.BYTES_PER_ELEMENT+v] )
+            arrayData.push( Module.HEAP32[offset+v] )
         }
 
         // let pixels = arrayData.reduce((rows, key, index) => (index % 4 == 0 ? rows.push([key]) : rows[rows.length-1].push(key)) && rows, []);
