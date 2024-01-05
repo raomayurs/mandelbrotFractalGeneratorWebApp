@@ -130,6 +130,8 @@
       let r = initR;
       let i = initI;
       let minZoom = 0.01;
+      let minChange = 0.001;
+      let numDecimals = 3;
 
       const updateMinZoom = () => {
         if (Math.abs(x2 - x1) < 20 * minZoom || Math.abs(y2 - y1) < 20 * minZoom) {
@@ -197,8 +199,8 @@
         r = initR;
         i = initI;
         setImage();
-        document.getElementById("realText").innerHTML = "c.real = " + r.toFixed(2);;
-        document.getElementById("imaginaryText").innerHTML = "c.im = " + i.toFixed(2);;
+        document.getElementById("realText").innerHTML = "c.real = " + r.toFixed(numDecimals);;
+        document.getElementById("imaginaryText").innerHTML = "c.im = " + i.toFixed(numDecimals);;
       });
 
       document.getElementById("zoom in").addEventListener("click", () => {
@@ -254,31 +256,31 @@
       });
 
       document.getElementById("real increase").addEventListener("click", () => {
-        r = r + 0.01;
+        r = r + minChange;
         if (r > 2.0) r = 2.0;
         setImage();
-        document.getElementById("realText").innerHTML = "c.real = " + r.toFixed(2);;
+        document.getElementById("realText").innerHTML = "c.real = " + r.toFixed(numDecimals);;
       });
 
       document.getElementById("real decrease").addEventListener("click", () => {
-        r = r - 0.01;
+        r = r - minChange;
         if (r < -2.0) r = -2.0;
         setImage();
-        document.getElementById("realText").innerHTML = "c.real = " + r.toFixed(2);;
+        document.getElementById("realText").innerHTML = "c.real = " + r.toFixed(numDecimals);;
       });
 
       document.getElementById("imaginary increase").addEventListener("click", () => {
-        i = i + 0.01;
+        i = i + minChange;
         if (i > 2.0) i = 2.0;
         setImage();
-        document.getElementById("imaginaryText").innerHTML = "c.im = " + i.toFixed(2);;
+        document.getElementById("imaginaryText").innerHTML = "c.im = " + i.toFixed(numDecimals);;
       });
 
       document.getElementById("imaginary decrease").addEventListener("click", () => {
-        i = i - 0.01;
+        i = i - minChange;
         if (i < -2.0) r = -2.0;
         setImage();
-        document.getElementById("imaginaryText").innerHTML = "c.im = " + i.toFixed(2);;
+        document.getElementById("imaginaryText").innerHTML = "c.im = " + i.toFixed(numDecimals);;
       });
     </script>
     <p><b> Instructions </b></p>
