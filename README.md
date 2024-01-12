@@ -38,7 +38,7 @@ The fractals are generated as 700x700 images. WebAssembly (WASM) is utilized for
     - Refresh on making changes to `index.html` to see changes
     - Same steps for `julia.html`
 - `fractalsGCC.c` is a C program that is a very similar file to fractal.c. Just that this one can be run using gcc
-    - `gcc -lm -lpng fractalsGCC.c -o fractal && ./fractal 10 10 -0.4 0.65 -2.0 2.0 -2.0 2.0 test.png`
+    - `gcc -lm -lpng fractalsGCC.c -o fractal && ./fractal 500 500 -0.4 0.65 -2.0 2.0 -2.0 2.0 test.png`
 
 ## Build Steps
 
